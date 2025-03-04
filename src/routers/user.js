@@ -20,7 +20,7 @@ router.post('/users', async (req, res) => {
 router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-        const token = user.generateAuthToken();
+        const token = await user.generateAuthToken();
         res.send({user, token});
     } catch (error) {
         res.status(400).send(error);
@@ -30,11 +30,11 @@ router.post('/users/login', async (req, res) => {
 // logout
 router.post('/users/logout', Auth, async (req, res) => {
     try {
-        req.user.tokens = res.user.tokens.filter((token) => token.token !== req.token);
+        req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
         await req.user.save();
-        res.send();
+        res.send('Successful log out');
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send(error);
     }
 });
 
@@ -43,9 +43,9 @@ router.post('/users/logoutAll', Auth, async (req, res) => {
     try {
         req.user.tokens = [];
         await req.user.save();
-        res.send();
+        res.send('Successful log out');
     } catch (error) {
-        res.status(500).send();
+        res.status(500).send(error);
     }
 });
 
