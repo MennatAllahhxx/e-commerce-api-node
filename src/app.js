@@ -7,6 +7,9 @@ app.use(express.json());
 const userRoutes = require('./routers/user');
 app.use(userRoutes);
 
+const itemRoutes = require('./routers/item');
+app.use(itemRoutes);
+
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log('server listening on port: ' + port);
