@@ -10,6 +10,9 @@ app.use(userRoutes);
 const itemRoutes = require('./routers/item');
 app.use(itemRoutes);
 
+const cartRoutes = require('./routers/cart');
+app.use(cartRoutes);
+
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log('server listening on port: ' + port);
