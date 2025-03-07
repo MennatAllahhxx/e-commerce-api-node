@@ -84,6 +84,7 @@ router.delete('/cart', Auth, async (req, res) => {
         if (!cart.items.length) throw new Error('your cart is empty');
 
         cart.items = [];
+        cart.bill = 0;
         await cart.save();
 
         res.status(200).send({
