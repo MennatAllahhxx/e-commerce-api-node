@@ -53,7 +53,6 @@ router.post('/cart', Auth, async (req, res) => {
 
         res.status(200).send(cart);
     } catch (err) {
-        console.log(err.message);
         res.status(500).send(err.message);
     }
 });
@@ -70,6 +69,29 @@ router.get('/cart', Auth, async (req, res) => {
     } catch (error) {
         res.status(404).send({
             message: "you dont have a cart"
+        });
+    }
+});
+
+// delete cart items
+router.delete('/cart', Auth, async (req, res) => {
+    try {
+        const cart = await Cart.findOne({
+            owner: req.user._id
+        });
+
+        if (!cart) throw new Error('you dont have a cart');
+        if (!cart.items.length) throw new Error('your cart is empty');
+
+        cart.items = [];
+        await cart.save();
+
+        res.status(200).send({
+            message: 'cart items deleted successfully'
+        })
+    } catch (err) {
+        res.status(500).send({
+            message: err.message
         });
     }
 });

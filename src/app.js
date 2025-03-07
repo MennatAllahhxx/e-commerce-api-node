@@ -1,16 +1,14 @@
 const express = require('express');
+const userRoutes = require('./routers/user');
+const itemRoutes = require('./routers/item');
+const cartRoutes = require('./routers/cart');
 require('./db/mongoose');
 
 const app = express();
 app.use(express.json());
 
-const userRoutes = require('./routers/user');
 app.use(userRoutes);
-
-const itemRoutes = require('./routers/item');
 app.use(itemRoutes);
-
-const cartRoutes = require('./routers/cart');
 app.use(cartRoutes);
 
 const port = process.env.PORT;
