@@ -22,4 +22,4 @@ npm run dev
 The API will run at `http://localhost:3000`.
 
 ## Contributing
-Feel free to open issues or submit pull requests.
+Feel free to open issues or submit pull requests
